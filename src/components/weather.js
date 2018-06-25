@@ -4,7 +4,7 @@ import React, {Component} from 'react'
 // call this: http://reg.bom.gov.au/fwo/IDN60903/IDN60903.94926.json
 
 const getBomReport = () => new Promise((resolves,rejects) => {
-    const endPoint = "https://bom-observations.azurewebsites.net/api/GetBomWeatherData?code=GidqrAZTY7Ml3gTG1qhnzmDUMb5O8Vl5bEFqanW6fhtC69VGUog6Ww==?location=Canberra";
+    const endPoint = "https://bom-observations.azurewebsites.net/api/GetBomWeatherData?code=GidqrAZTY7Ml3gTG1qhnzmDUMb5O8Vl5bEFqanW6fhtC69VGUog6Ww==&location=Canberra";
     var request = new XMLHttpRequest()
 
      request.open('GET',endPoint)
