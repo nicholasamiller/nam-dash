@@ -4,9 +4,12 @@ import React, {Component} from 'react'
 // call this: http://reg.bom.gov.au/fwo/IDN60903/IDN60903.94926.json
 
 const getBomReport = () => new Promise((resolves,rejects) => {
-    const endPoint = "https://reg.bom.gov.au/fwo/IDN60903/IDN60903.94926.json"
-    const request = new XMLHttpRequest()
-    request.open('GET',endPoint)
+    const endPoint = "https://bom-observations.azurewebsites.net/api/GetBomWeatherData?code=GidqrAZTY7Ml3gTG1qhnzmDUMb5O8Vl5bEFqanW6fhtC69VGUog6Ww==?location=Canberra";
+    var request = new XMLHttpRequest()
+
+     request.open('GET',endPoint)
+
+
     request.onload = () => (request.status === 200) ?
         resolves(JSON.parse(request.response)) :
         rejects(Error(request.statusText))
@@ -32,7 +35,7 @@ class BomWeatherComponent extends Component {
     refreshBom = () => {
         getBomReport().then(
             results => {
-                const latestObservation = results.observations.data[0]
+                const latestObservation = results;
                 //const temp = results.observations.data[0].air_temp
                 this.setState({bom: latestObservation})
             },
@@ -61,11 +64,10 @@ class BomWeatherComponent extends Component {
 
     render() {
 
-        const currentTemp = this.state.bom.air_temp
-        const cloudType = this.state.bom.cloud_type
-        const windDir = this.state.bom.wind_dir
-        const windSpeed = this.state.bom.wind_spd_kmh
-        const lastReport = this.state.bom.local_date_time
+        const currentTemp = this.state.bom.tempInC;
+        const cloudType = this.state.bom.cloutType;
+        const gustSpeed = this.state.bom.gustKmh;
+        const lastReport = this.state.bom.observationTime;
 
 
         return (
@@ -79,7 +81,7 @@ class BomWeatherComponent extends Component {
                             <th scope="row">Cloud type</th><td>{cloudType}</td>
                         </tr>
                         <tr>
-                          <th scope="row">Wind</th><td>{windDir} {windSpeed} kph</td>
+                          <th scope="row">Wind Gust</th><td>{gustSpeed} kph</td>
                         </tr>
                         <tr>
                             <td>Last updated</td><td>{lastReport}</td>
