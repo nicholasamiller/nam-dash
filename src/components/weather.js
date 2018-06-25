@@ -25,8 +25,7 @@ class BomWeatherComponent extends Component {
     constructor() {
         super()
         this.state = {
-            loading: false,
-            bom: {}
+            loading: true
         }
     }
 
@@ -34,9 +33,8 @@ class BomWeatherComponent extends Component {
     refreshBom = () => {
         getBomReport().then(
             results => {
-                const latestObservation = results;
-                //const temp = results.observations.data[0].air_temp
-                this.setState({bom: latestObservation})
+                this.setState({bom: results,loading: false})
+
             },
             error => {
                 this.setState({bom: "error"})
@@ -47,9 +45,7 @@ class BomWeatherComponent extends Component {
 
 
     componentWillMount() {
-        this.setState({loading: true})
         this.refreshBom()
-        this.setState({loading: false})
     }
 
     componentDidMount() {
@@ -63,22 +59,41 @@ class BomWeatherComponent extends Component {
 
     render() {
 
-        const currentTemp = this.state.bom.tempInC;
-        const cloudType = this.state.bom.cloudType;
-        const gustSpeed = this.state.bom.gustKmh;
-        const lastReport = this.state.bom.observationTime;
+        if (this.state.loading === true)
+        {
+            return <div>Loading...</div>
+        }
 
 
-        return (
-            <div className="container">
+        else if (this.state.bom === undefined)
+        {
+           return <div>Error</div>
+        }
+        else {
+
+
+            const currentTemp = this.state.bom.observation.tempInC;
+            const feelslike = this.state.bom.observation.feelsLikeTempInC;
+            const cloudType = this.state.bom.observation.cloudType;
+            const gustSpeed = this.state.bom.observation.gustKmh;
+            const lastReport = this.state.bom.observation.observationTime;
+
+            const forecast = this.state.bom.forecast.forecast;
+            const uvAlert = this.state.bom.forecast.uvAlert;
+
+            return (
                 <div className="row">
                     <div className="col-lg">
                         <h1>Current</h1>
                         <table className="table">
                             <tbody>
                             <tr>
-                                <th scope="row">Temp</th>
+                                <th scope="row">Air Temp</th>
                                 <td>{currentTemp} °C</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Feels Like</th>
+                                <td>{feelslike} °C</td>
                             </tr>
                             <tr>
                                 <th scope="row">Cloud type</th>
@@ -97,12 +112,26 @@ class BomWeatherComponent extends Component {
                     </div>
 
                     <div className="col-lg">
+                        <h1>Forecast</h1>
+                        <table className="table">
+                            <tbody>
+                            <tr>
+                                <th scope="row">Forecast</th>
+                                <td>{forecast}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">UV Alert</th>
+                                <td>{uvAlert === "" ? "None" : uvAlert}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
 
                     </div>
 
                 </div>
-            </div>
-        )
+            )
+        }
 
     }
 
