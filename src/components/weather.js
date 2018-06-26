@@ -87,7 +87,6 @@ class BomWeatherComponent extends Component {
                     <div className="col-lg">
                         <h1>Current</h1>
                         <table className="table">
-                            <tbody>
                             <tr>
                                 <th scope="row">Air Temp</th>
                                 <td>{currentTemp} °C</td>
@@ -103,6 +102,7 @@ class BomWeatherComponent extends Component {
                             <tr>
                                 <th scope="row">Cloud height</th>
                                 <td>{cloudHeight}m</td>
+                            </tr>
                             <tr>
                                 <th scope="row">Wind Gust</th>
                                 <td>{gustSpeed} kph</td>
@@ -111,7 +111,6 @@ class BomWeatherComponent extends Component {
                                 <td>Last updated</td>
                                 <td>{lastReport}</td>
                             </tr>
-                            </tbody>
                         </table>
                     </div>
 
