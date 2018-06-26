@@ -77,6 +77,7 @@ class BomWeatherComponent extends Component {
             const cloudType = this.state.bom.observation.cloudType;
             const gustSpeed = this.state.bom.observation.gustKmh;
             const lastReport = this.state.bom.observation.observationTime;
+            const cloudHeight = this.state.bom.observation.cloudHeightInM;
 
             const forecast = this.state.bom.forecast.forecast;
             const uvAlert = this.state.bom.forecast.uvAlert;
@@ -99,6 +100,9 @@ class BomWeatherComponent extends Component {
                                 <th scope="row">Cloud type</th>
                                 <td>{cloudType}</td>
                             </tr>
+                            <tr>
+                                <th scope="row">Cloud height</th>
+                                <td>{cloudHeight}m</td>
                             <tr>
                                 <th scope="row">Wind Gust</th>
                                 <td>{gustSpeed} kph</td>
