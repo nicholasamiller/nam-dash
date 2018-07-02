@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
-
+import {DateTime} from 'luxon'
+import {GetMillisDelayToNextMinutesInHour} from "./dateUtilities";
 
 // call this: http://reg.bom.gov.au/fwo/IDN60903/IDN60903.94926.json
 
 const getBomReport = () => new Promise((resolves, rejects) => {
     const endPoint = "https://bom-observations.azurewebsites.net/api/GetBomWeatherData?code=GidqrAZTY7Ml3gTG1qhnzmDUMb5O8Vl5bEFqanW6fhtC69VGUog6Ww==&location=Canberra";
-    var request = new XMLHttpRequest()
+    const request = new XMLHttpRequest();
 
     request.open('GET', endPoint)
 
@@ -18,9 +19,11 @@ const getBomReport = () => new Promise((resolves, rejects) => {
 
 })
 
+const getSunriseAndSunsetTimes = (dt) => {
+
+}
 
 class BomWeatherComponent extends Component {
-
 
     constructor() {
         super()
@@ -33,7 +36,7 @@ class BomWeatherComponent extends Component {
     refreshBom = () => {
         getBomReport().then(
             results => {
-                this.setState({bom: results,loading: false})
+                this.setState({bom: results, loading: false})
 
             },
             error => {
@@ -50,24 +53,30 @@ class BomWeatherComponent extends Component {
 
     componentDidMount() {
 
-        this.interval = setInterval(() => this.refreshBom(), 60000)
+        const delayToNextHalfHour = GetMillisDelayToNextMinutesInHour(DateTime.local(), 30)
+        const delayPlusTenSecs = delayToNextHalfHour + 10000
+        const thirtyMinDelayInMs = 30 * 60 * 100
+        this.timeout = setTimeout(() =>
+
+                this.interval = setInterval(this.refreshBom(), thirtyMinDelayInMs),
+            delayPlusTenSecs
+        )
     }
 
     componentWillUnmount() {
         clearInterval(this.interval);
+        clearTimeout(this.timeout)
     }
 
     render() {
 
-        if (this.state.loading === true)
-        {
+        if (this.state.loading === true) {
             return <div>Loading...</div>
         }
 
 
-        else if (this.state.bom === undefined)
-        {
-           return <div>Error</div>
+        else if (this.state.bom === undefined) {
+            return <div>Error</div>
         }
         else {
 
@@ -83,55 +92,49 @@ class BomWeatherComponent extends Component {
             const uvAlert = this.state.bom.forecast.uvAlert;
 
             return (
-                <div className="row">
-                    <div className="col-lg">
-                        <h1>Current</h1>
-                        <table className="table">
-                            <tr>
-                                <th scope="row">Air Temp</th>
-                                <td>{currentTemp} °C</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Feels Like</th>
-                                <td>{feelslike} °C</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Cloud type</th>
-                                <td>{cloudType}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Cloud height</th>
-                                <td>{cloudHeight}m</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Wind Gust</th>
-                                <td>{gustSpeed} kph</td>
-                            </tr>
-                            <tr>
-                                <td>Last updated</td>
-                                <td>{lastReport}</td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div className="col-lg">
-                        <h1>Forecast</h1>
-                        <table className="table">
-                            <tbody>
-                            <tr>
-                                <th scope="row">Forecast</th>
-                                <td>{forecast}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">UV Alert</th>
-                                <td>{uvAlert === "" ? "None" : uvAlert}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-
-
-                    </div>
-
+                <div>
+                    <h2>Current</h2>
+                    <table className="table">
+                        <tbody>
+                        <tr>
+                            <th scope="row">Air Temp</th>
+                            <td>{currentTemp} °C</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Feels Like</th>
+                            <td>{feelslike} °C</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Cloud type</th>
+                            <td>{cloudType}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Cloud height</th>
+                            <td>{cloudHeight !== "" ? cloudHeight + "m" : ""}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Wind Gust</th>
+                            <td>{gustSpeed} kph</td>
+                        </tr>
+                        <tr>
+                            <td>Last updated</td>
+                            <td>{lastReport}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h2>Forecast</h2>
+                    <table className="table">
+                        <tbody>
+                        <tr>
+                            <th scope="row">Forecast</th>
+                            <td>{forecast}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">UV Alert</th>
+                            <td>{uvAlert === "" ? "None" : uvAlert}</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             )
         }
