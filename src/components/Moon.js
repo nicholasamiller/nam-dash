@@ -65,8 +65,9 @@ class Moon extends Component {
 
     render() {
         return (
-            <div>
-                <h2>Moon</h2>
+            <div className="card">
+                <div className="card-body">
+                    <h2 className="card-title">Moon</h2>
                 <table className="table">
                     <tbody>
                     <tr>
@@ -118,6 +119,7 @@ class Moon extends Component {
 
                     </tbody>
                 </table>
+                </div>
             </div>
 
         )
