@@ -15,7 +15,7 @@ const getSunTimesForCanberra = () => {
 }
 
 const getMoonDetailForCanberra = () => {
-    const dt = DateTime.utc().toJSDate();
+    const dt = DateTime.utc().setZone('Australia/Canberra').toJSDate()
     const pos = SunCalc.getMoonPosition(/*Date*/ dt, /*Number*/ lat, /*Number*/ long);
     const times = SunCalc.getMoonTimes(/*Date*/ dt, /*Number*/ lat, /*Number*/ long, true);
     const illumination = SunCalc.getMoonIllumination(dt);
@@ -33,7 +33,7 @@ const formatUtcToCanberraFriendlyTime = (utcTime: Date) => {
     return zoned.hour + ":" + zoned.minute
 }
 
-const capitalise = (s) => s.charAt(0).toUpperCase() + s.slice(1)
+//const capitalise = (s) => s.charAt(0).toUpperCase() + s.slice(1)
 
 const round = (n) => n.toFixed(2)
 
@@ -68,6 +68,7 @@ class Moon extends Component {
             <div>
                 <h2>Moon</h2>
                 <table className="table">
+                    <tbody>
                     <tr>
                         <th scope="row">Rises</th>
                         <td>
@@ -115,7 +116,7 @@ class Moon extends Component {
                 </tr>)
             }*/}
 
-
+                    </tbody>
                 </table>
             </div>
 
@@ -124,4 +125,4 @@ class Moon extends Component {
 }
 
 
-export {Moon, getMoonDetailForCanberra, formatUtcToCanberraFriendlyTime}
+export {Moon, getMoonDetailForCanberra, formatUtcToCanberraFriendlyTime, getSunTimesForCanberra}

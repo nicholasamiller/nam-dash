@@ -4,8 +4,8 @@ import {DateTime, Interval} from 'luxon'
 const TwentyFourHourTimeToLocalDateTime = (twentyFourHourTime) => {
     const splitToHoursAndMinutes = twentyFourHourTime.toString().split(":")
 
-    const hour = parseInt(splitToHoursAndMinutes[0])
-    const minute = parseInt(splitToHoursAndMinutes[1])
+    const hour = parseInt(splitToHoursAndMinutes[0],10)
+    const minute = parseInt(splitToHoursAndMinutes[1],10)
 
     const currentDateTime = DateTime.local()
 

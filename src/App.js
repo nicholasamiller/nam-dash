@@ -3,6 +3,7 @@ import './App.css';
 import BomWeatherComponent from "./components/weather";
 import {Moon} from './components/Moon';
 import {getMoonDetailForCanberra} from "./components/Moon";
+import {BookmarksComponent} from "./components/BookmarksComponent";
 
 class App extends Component {
 
@@ -11,6 +12,7 @@ class App extends Component {
         return (
             <div className="App">
                 <div className="container-fluid">
+                    <BookmarksComponent/>
                     <div className="row">
                         <div className="col-sm">
                             <BomWeatherComponent/>

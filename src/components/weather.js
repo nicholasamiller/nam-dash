@@ -19,9 +19,7 @@ const getBomReport = () => new Promise((resolves, rejects) => {
 
 })
 
-const getSunriseAndSunsetTimes = (dt) => {
 
-}
 
 class BomWeatherComponent extends Component {
 
