@@ -66,9 +66,9 @@ class Moon extends Component {
     render() {
         return (
             <div className="card">
+                <h2 className="card-title">Moon</h2>
                 <div className="card-body">
-                    <h2 className="card-title">Moon</h2>
-                <table className="table">
+                <table className="table table-sm">
                     <tbody>
                     <tr>
                         <th scope="row">Rises</th>
@@ -80,7 +80,7 @@ class Moon extends Component {
                     <tr>
                         <th scope="row">Sets</th>
                         <td>
-                            {this.state.data.times.set !== undefined ? formatUtcToCanberraFriendlyTime(this.props.data.times.set) : ""}
+                            {this.state.data.times.set !== undefined  ? formatUtcToCanberraFriendlyTime(this.props.data.times.set) : ""}
 
                         </td>
                     </tr>

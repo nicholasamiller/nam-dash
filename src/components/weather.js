@@ -5,7 +5,7 @@ import {GetMillisDelayToNextMinutesInHour} from "./dateUtilities";
 // call this: http://reg.bom.gov.au/fwo/IDN60903/IDN60903.94926.json
 
 const getBomReport = () => new Promise((resolves, rejects) => {
-    const endPoint = "https://bom-observations.azurewebsites.net/api/GetBomWeatherData?code=GidqrAZTY7Ml3gTG1qhnzmDUMb5O8Vl5bEFqanW6fhtC69VGUog6Ww==&location=Canberra";
+    const endPoint = "/getBomData";
     const request = new XMLHttpRequest();
 
     request.open('GET', endPoint)
@@ -90,9 +90,11 @@ class BomWeatherComponent extends Component {
             const uvAlert = this.state.bom.forecast.uvAlert;
 
             return (
-                <div>
-                    <h2>Current</h2>
-                    <table className="table">
+                <div className="card">
+                    <h2 className="card-title">Weather</h2>
+                    <div className="card-body">
+
+                    <table className="table table-sm">
                         <tbody>
                         <tr>
                             <th scope="row">Air Temp</th>
@@ -115,15 +117,6 @@ class BomWeatherComponent extends Component {
                             <td>{gustSpeed} kph</td>
                         </tr>
                         <tr>
-                            <td>Last updated</td>
-                            <td>{lastReport}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <h2>Forecast</h2>
-                    <table className="table">
-                        <tbody>
-                        <tr>
                             <th scope="row">Forecast</th>
                             <td>{forecast}</td>
                         </tr>
@@ -131,14 +124,17 @@ class BomWeatherComponent extends Component {
                             <th scope="row">UV Alert</th>
                             <td>{uvAlert === "" ? "None" : uvAlert}</td>
                         </tr>
+                        <tr>
+                            <td>Last updated</td>
+                            <td>{lastReport}</td>
+                        </tr>
                         </tbody>
                     </table>
+                    </div>
                 </div>
             )
         }
-
     }
-
 }
 
 
