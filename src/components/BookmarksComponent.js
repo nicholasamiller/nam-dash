@@ -12,8 +12,16 @@ const data = [
     {
         "name": "Regex",
         "href": "https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-language-quick-reference"
+    },
+	{
+	"name": "AWS",
+	"href": "https://ap-southeast-2.console.aws.amazon.com/console/home?region=ap-southeast-2#"
+	},
+	{
+	"name: "Azure",
+	"href": "https://portal.azure.com/"
+}
 
-    }
 ];
 
 
@@ -32,8 +40,6 @@ class BookmarksComponent extends Component {
                 <ul className="navbar-nav">
                     {this.state.data.map(bm => <li><a className="nav-link" href={bm.href} target='_blank'>{bm.name}</a>  </li>)}
                 </ul>
-
-
         </nav>
 
     }
