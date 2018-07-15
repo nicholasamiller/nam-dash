@@ -1,6 +1,7 @@
 import SunCalc from 'suncalc'
 import {DateTime} from 'luxon'
 import React, {Component} from "react";
+import {ConvertCamelCaseToTitleCase} from "../Utils";
 
 const lat = -35.28346;
 const long = 149.12807;
@@ -30,7 +31,7 @@ const getMoonDetailForCanberra = () => {
 const formatUtcToCanberraFriendlyTime = (utcTime: Date) => {
     const ianaZone = "Australia/Canberra";
     const zoned = DateTime.fromJSDate(utcTime).setZone(ianaZone);
-    return zoned.hour + ":" + zoned.minute
+    return zoned.toLocaleString(DateTime.TIME_SIMPLE)
 }
 
 //const capitalise = (s) => s.charAt(0).toUpperCase() + s.slice(1)
@@ -38,6 +39,59 @@ const formatUtcToCanberraFriendlyTime = (utcTime: Date) => {
 const round = (n) => n.toFixed(2)
 
 const radToDegrees = (radians) => radians * 180 / Math.PI
+
+
+class Sun extends Component {
+
+    componentWillMount() {
+        const sunData = getSunTimesForCanberra()
+        this.setState({data: sunData})
+    }
+
+    render() {
+        return <div className="card">
+            <h2 className="card-title">Sun</h2>
+            <div className="card-body">
+                <table className="table table-sm">
+                    <tbody>
+                    <tr>
+                        <th scope="row">Rises</th>
+                        <td>
+                            {formatUtcToCanberraFriendlyTime(this.state.data.sunrise)}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Nautical Sunrise</th>
+                        <td>
+                            {formatUtcToCanberraFriendlyTime(this.state.data.nauticalDawn)}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Sets</th>
+                        <td>
+                            {formatUtcToCanberraFriendlyTime(this.state.data.sunset)}
+
+                        </td>
+                    </tr>
+
+                     <tr>
+                        <th scope="row">Nautical Dusk</th>
+                        <td>
+                            { formatUtcToCanberraFriendlyTime(this.state.data.nauticalDusk)}
+
+                        </td>
+                    </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+}
 
 class Moon extends Component {
 
@@ -92,22 +146,6 @@ class Moon extends Component {
                         <th scope="row">Phase</th>
                         <td>{round(this.state.data.illumination.phase)}</td>
                     </tr>
-                    <tr>
-                        <th scope="row">Angle</th>
-                        <td>{round(this.state.data.illumination.angle)}°</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Azimuth</th>
-                        <td>{round(radToDegrees(this.state.data.pos.azimuth))}°</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Altitude</th>
-                        <td>{round(radToDegrees(this.state.data.pos.altitude))}°</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Distance</th>
-                        <td>{round(this.state.data.pos.distance)} kms</td>
-                    </tr>
                     {/*
             {Object.keys(props.data.illumination)
                 .map(key => ({name: key, value: props.data.illumination[key]}))
@@ -127,4 +165,4 @@ class Moon extends Component {
 }
 
 
-export {Moon, getMoonDetailForCanberra, formatUtcToCanberraFriendlyTime, getSunTimesForCanberra}
+export {Moon, Sun, getMoonDetailForCanberra, formatUtcToCanberraFriendlyTime, getSunTimesForCanberra}

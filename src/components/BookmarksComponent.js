@@ -18,9 +18,9 @@ const data = [
 	"href": "https://ap-southeast-2.console.aws.amazon.com/console/home?region=ap-southeast-2#"
 	},
 	{
-	"name: "Azure",
+	"name": "Azure",
 	"href": "https://portal.azure.com/"
-}
+    }
 
 ];
 
