@@ -1,0 +1,1 @@
+cp .\build\** -Recurse -Force  ..\nam-dash-server\NamDashAspNetCoreServer\wwwroot\
