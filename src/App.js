@@ -4,6 +4,7 @@ import BomWeatherComponent from "./components/weather";
 import {Moon, Sun} from './components/Moon';
 import {getMoonDetailForCanberra} from "./components/Moon";
 import {BookmarksComponent} from "./components/BookmarksComponent";
+import {QuoteComponent} from "./components/QuoteComponent";
 
 class App extends Component {
 
@@ -15,13 +16,16 @@ class App extends Component {
                     <BookmarksComponent/>
                     <div className="row">
                         <div className="col-sm">
-                            <BomWeatherComponent/>
+                           <BomWeatherComponent/>
                         </div>
                         <div className="col-sm">
                             <Sun/>
                         </div>
                         <div className="col-sm">
                             <Moon data={getMoonDetailForCanberra()}/>
+                        </div>
+                        <div className="col-sm">
+                            <QuoteComponent/>
                         </div>
                     </div>
                 </div>

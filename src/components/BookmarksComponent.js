@@ -38,7 +38,7 @@ class BookmarksComponent extends Component {
     render() {
         return <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <ul className="navbar-nav">
-                    {this.state.data.map(bm => <li><a className="nav-link" href={bm.href} target='_blank'>{bm.name}</a>  </li>)}
+                    {this.state.data.sort((a,b) => a.name.localeCompare(b.name)).map(bm => <li><a className="nav-link" href={bm.href} target='_blank'>{bm.name}</a>  </li>)}
                 </ul>
         </nav>
 
