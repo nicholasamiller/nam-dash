@@ -27,6 +27,10 @@ const data = [
 
 class BookmarksComponent extends Component {
 
+
+
+
+
     constructor(props) {
         super(props)
         this.state = {
