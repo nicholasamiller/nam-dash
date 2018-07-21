@@ -16,6 +16,9 @@ class App extends Component {
                     <BookmarksComponent/>
                     <div className="row">
                         <div className="col-sm">
+                            <QuoteComponent/>
+                        </div>
+                        <div className="col-sm">
                            <BomWeatherComponent/>
                         </div>
                         <div className="col-sm">
@@ -23,9 +26,6 @@ class App extends Component {
                         </div>
                         <div className="col-sm">
                             <Moon data={getMoonDetailForCanberra()}/>
-                        </div>
-                        <div className="col-sm">
-                            <QuoteComponent/>
                         </div>
                     </div>
                 </div>
