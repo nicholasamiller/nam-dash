@@ -2,10 +2,9 @@ import React, {Component} from 'react'
 import {DateTime} from 'luxon'
 import {GetMillisDelayToNextMinutesInHour} from "./dateUtilities";
 
-// call this: http://reg.bom.gov.au/fwo/IDN60903/IDN60903.94926.json
 
 const getBomReport = () => new Promise((resolves, rejects) => {
-    const endPoint = "/getBomData";
+    const endPoint = "/api/Weather/getBomData";
     const request = new XMLHttpRequest();
 
     request.open('GET', endPoint)
