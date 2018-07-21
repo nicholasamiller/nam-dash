@@ -6,7 +6,7 @@ class QuoteComponent extends Component
     {
         super()
         this.state = {
-            quote: ""
+            quote: "Loading..."
         }
     }
 
