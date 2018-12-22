@@ -5,6 +5,7 @@ import {Moon, Sun} from './components/Moon';
 import {getMoonDetailForCanberra} from "./components/Moon";
 import {BookmarksComponent} from "./components/BookmarksComponent";
 import {QuoteComponent} from "./components/QuoteComponent";
+import UltraVioletComponent from "./components/UvComponent";
 
 class App extends Component {
 
@@ -19,7 +20,7 @@ class App extends Component {
                             <QuoteComponent/>
                         </div>
                         <div className="col-sm">
-                           <BomWeatherComponent/>
+                       //     <BomWeatherComponent/>
                         </div>
                         <div className="col-sm">
                             <Sun/>
@@ -27,6 +28,9 @@ class App extends Component {
                         <div className="col-sm">
                             <Moon data={getMoonDetailForCanberra()}/>
                         </div>
+                    </div>
+                    <div className="row">
+                        <UltraVioletComponent/>
                     </div>
                 </div>
             </div>
